@@ -1,3 +1,5 @@
+using System;
+
 namespace greeting_kata_csharp
 {
     public class Greeting
@@ -9,11 +11,13 @@ namespace greeting_kata_csharp
         private static string exclamation = "!";
         private static string and = "and";
 
-        public static string greet(params string[] names)
+        public static string greet(params string[] namesList)
         {
+            var names = new Names(namesList);
+
             if (isShouting(names))
             {
-                return shout(names[0]);
+                return shout(names);
             }
             else
             {
@@ -21,19 +25,19 @@ namespace greeting_kata_csharp
             }
         }
 
-        private static bool isShouting(params string[] names)
+        private static bool isShouting(Names names)
         {
-            return names != null && names[0].Equals(names[0].ToUpper());
+            return !names.IsEmpty() && names.GetFirst().Equals(names.GetFirst().ToUpper());
         }
 
-        private static string hey(params string[] names)
+        private static string hey(Names names)
         {
             return hello + comma + space + composeNames(names) + point;
         }
 
-        private static string composeNames(params string[] names)
+        private static string composeNames(Names names)
         {
-            if (names == null)
+            if (names.IsEmpty())
             {
                 return noNames();
             }
@@ -51,25 +55,25 @@ namespace greeting_kata_csharp
             return oneName(names);
         }
 
-        private static string manyNames(params string[] names)
+        private static string manyNames(Names names)
         {
             string output = "";
             for (int i = 0; i < names.Length - 1; i++)
             {
-                output = output + names[i] + comma + space;
+                output = output + names.Get(i) + comma + space;
             }
 
-            return output + and + space + names[names.Length - 1];
+            return output + and + space + names.Get(names.Length - 1);
         }
 
-        private static string twoNames(params string[] names)
+        private static string twoNames(Names names)
         {
-            return names[0] + space + and + space + names[1];
+            return names.GetFirst() + space + and + space + names.GetSecond();
         }
 
-        private static string oneName(params string[] names)
+        private static string oneName(Names names)
         {
-            return names[0];
+            return names.GetFirst();
         }
 
         private static string noNames()
@@ -77,9 +81,9 @@ namespace greeting_kata_csharp
             return "my friend";
         }
 
-        private static string shout(string name)
+        private static string shout(Names names)
         {
-            return hello.ToUpper() + space + name + exclamation;
+            return hello.ToUpper() + space + names.GetFirst() + exclamation;
         }
     }
 }
