@@ -54,6 +54,14 @@ namespace greeting_kata_csharp
 
             Assert.Equal("HELLO, BOB, BRIAN, AND CARLOTA!", Greeting.greet(names));
         }
+
+        [Fact]
+        public void have_to_greets_mixed_types_of_greetings ()
+        {
+            string[] names = new string[] { "Amy", "BRIAN", "Charlotte" };
+
+            Assert.Equal("Hello, Amy and Charlotte. AND HELLO BRIAN!", Greeting.greet(names));
+        }
         
     }
 }

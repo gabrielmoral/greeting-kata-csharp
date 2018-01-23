@@ -16,19 +16,20 @@ namespace greeting_kata_csharp
 
         internal override string greet()
         {
-            if (!names.Any()) return "";
+            string greetComposition = "";
 
-            string composition;
             if (names.Length == 1)
             {
-                composition = hello + space + composeNames(names) + exclamation;
+                greetComposition = hello + space + nameComposer(names) + exclamation;
             }
-            else
+            
+            if (names.Length >= 2)
             {
-                composition = hello + comma + space + composeNames(names) + exclamation;
+                greetComposition = hello + comma + space + nameComposer(names) + exclamation;
             }
 
-            return composition.ToUpper();
+            return greetComposition.ToUpper();
+
         }
 
     }

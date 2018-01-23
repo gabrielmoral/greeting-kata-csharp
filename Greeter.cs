@@ -27,8 +27,13 @@ namespace greeting_kata_csharp
             return name != null && name.Equals(name.ToUpper());
         }
 
-        protected static string composeNames(params string[] names)
+        protected string nameComposer(string [] names)
         {
+            if (names.Length == 1)
+            {
+                return oneName(names);
+            }
+            
             if (names.Length == 2)
             {
                 return twoNames(names);
@@ -39,7 +44,7 @@ namespace greeting_kata_csharp
                 return manyNames(names);
             }
 
-            return oneName(names);
+            return "";
         }
 
         protected static string manyNames(params string[] names)
